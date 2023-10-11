@@ -1,73 +1,61 @@
-function generarSopaLetras(filas, columnas) {
-    const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const sopaLetras = [];
+function colocarPalabrasEnSopa(palabras) {
+    const filas = 12;
+    const columnas = 14;
+    const orientaciones = [
+        [0, 1], [1, 0], [-1, 0], [0, -1], // horizontal, vertical, vertical invertida, horizontal invertida
+        [1, 1], [-1, -1], [1, -1], [-1, 1]  // diagonal descendente, diagonal ascendente, diagonal ascendente invertida, diagonal descendente invertida
+    ];
 
-    // Inicializar la matriz con letras aleatorias
-    for (let i = 0; i < filas; i++) {
-        const fila = [];
-        for (let j = 0; j < columnas; j++) {
-            const letra = letras[Math.floor(Math.random() * letras.length)];
-            fila.push(letra);
+    const sopa = Array.from({ length: filas }, () => Array(columnas).fill(''));
+
+    function palabraCabeEnPosicion(palabra, fila, columna, orientacion) {
+        let filaActual = fila;
+        let columnaActual = columna;
+        for (let i = 0; i < palabra.length; i++) {
+            if (filaActual < 0 || filaActual >= filas || columnaActual < 0 || columnaActual >= columnas || (sopa[filaActual][columnaActual] !== '' && sopa[filaActual][columnaActual] !== palabra[i])) {
+                return false;
+            }
+            filaActual += orientacion[0];
+            columnaActual += orientacion[1];
         }
-        sopaLetras.push(fila);
+        return true;
     }
 
-    return sopaLetras;
-}
-
-function insertarPalabrasEnSopa(sopa, palabras) {
-    const filas = sopa.length;
-    const columnas = sopa[0].length;
-
-    palabras.forEach(palabra => {
+    function colocarPalabra(palabra) {
+        const orientacion = orientaciones[Math.floor(Math.random() * orientaciones.length)];
+        const pasoFila = orientacion[0];
+        const pasoColumna = orientacion[1];
         const longitud = palabra.length;
-        const orientacion = Math.floor(Math.random() * 8); // 8 orientaciones posibles
 
         let filaInicial = Math.floor(Math.random() * filas);
         let columnaInicial = Math.floor(Math.random() * columnas);
 
-        // Horizontal
-        if (orientacion === 0) {
-            if (columnaInicial + longitud <= columnas) {
-                for (let i = 0; i < longitud; i++) {
-                    sopa[filaInicial][columnaInicial + i] = palabra[i];
+        for (let i = 0; i < filas; i++) {
+            for (let j = 0; j < columnas; j++) {
+                const filaActual = (filaInicial + i * pasoFila) % filas;
+                const columnaActual = (columnaInicial + j * pasoColumna) % columnas;
+
+                if (palabraCabeEnPosicion(palabra, filaActual, columnaActual, orientacion)) {
+                    for (let k = 0; k < longitud; k++) {
+                        sopa[filaActual + k * pasoFila][columnaActual + k * pasoColumna] = palabra[k];
+                    }
+                    return true;
                 }
             }
         }
-        // Vertical
-        // ... similar a horizontal, pero en la dirección vertical
+        return false;
+    }
 
-        // Diagonal Positiva
-        // ... similar a horizontal, pero en la dirección diagonal positiva (/)
-
-        // Diagonal Negativa
-        // ... similar a horizontal, pero en la dirección diagonal negativa (\)
-
-        // Otras orientaciones...
-
+    palabras.forEach(palabra => {
+        let colocada = false;
+        while (!colocada) {
+            colocada = colocarPalabra(palabra);
+        }
     });
 
     return sopa;
 }
 
-
-document.addEventListener('DOMContentLoaded', function () {
-    const filas = 13;
-    const columnas = 13;
-    const palabras = ['PRESTAMO', 'PLATAFORMAS', 'DISTRIBUCION', 'VENTA', 'ALQUILER'];
-
-    // Generar sopa de letras
-    const sopa = generarSopaLetras(filas, columnas);
-
-    // Insertar palabras en la sopa de letras
-    const sopaConPalabras = insertarPalabrasEnSopa(sopa, palabras);
-
-    // Asignar letras a los botones en el HTML
-    const botones = document.querySelectorAll('.classLetra');
-    for (let i = 0; i < filas; i++) {
-        for (let j = 0; j < columnas; j++) {
-            botones[i * filas + j].textContent = sopaConPalabras[i][j];
-        }
-    }
-});
-
+const palabras = ['PRESTAMO', 'PLATAFORMAS', 'DISTRIBUCION', 'VENTA', 'ALQUILER'];
+const sopa = colocarPalabrasEnSopa(palabras);
+console.log(sopa);
