@@ -52,8 +52,8 @@ function insertarPalabrasEnSopa(sopa, palabras) {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    const filas = 12;
-    const columnas = 12;
+    const filas = 13;
+    const columnas = 13;
     const palabras = ['PRESTAMO', 'PLATAFORMAS', 'DISTRIBUCION', 'VENTA', 'ALQUILER'];
 
     // Generar sopa de letras
