@@ -1,0 +1,70 @@
+/*==========Inicio Head===============*/
+
+.classHeadH1{
+    text-align: center;
+
+}
+
+/*==========Fin Head===============*/
+
+
+/*=========Inicio puzzle*/
+.classPuzzleContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.classPuzzle{
+    width: 540px;
+    height: 540px;
+    border: 2px solid black;
+}
+
+.classPuzzleFila{
+    width: 100%;
+    height: 45px;
+    display: flex;
+    align-items: center;
+}
+
+.color1{
+    background-color: antiquewhite;
+}
+
+.color2{
+    background-color: rgb(202, 123, 19);
+}
+
+.color3{
+    background-color: rgb(98, 190, 126);
+}
+
+.color4{
+    background-color: rgb(35, 137, 184);
+}
+
+.color5{
+    background-color: rgb(119, 32, 160);
+}
+
+.color6{
+    background-color: rgb(233, 41, 105);
+}
+
+.color7{
+    background-color: rgb(154, 216, 97);
+}
+
+.color8{
+    background-color: rgb(41, 13, 199);
+}
+
+.classLetra{
+    width: 45px;
+    height: 45px;
+    margin: 0;
+    padding: 0;
+}
+/*=========Fin puzzle*/
