@@ -112,7 +112,6 @@ function colocarPalabrasEnSopa(palabras, filas, columnas) {
     return sopa;
 }
 
-// Ejemplo de uso
 const palabras = ['PRESTAMO', 'PLATAFORMAS', 'DISTRIBUCIÓN', 'VENTA', 'ALQUILER'];
 const filas = 12;
 const columnas = 14;
@@ -132,3 +131,4 @@ for (let fila = 0; fila < filas; fila++) {
         boton.textContent = sopa[fila][columna];
     }
 }
+

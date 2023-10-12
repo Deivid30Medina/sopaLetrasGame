@@ -11,7 +11,8 @@
     <head class="classHead">
         <h1 class="classHeadH1">Sopa Letra</h1>
     </head>
-    <main>
+    <main class="classMainSopaLetras">
+        <div class="classPalabraFormada" id="palabra-formada"></div>
         <div class="classPuzzleContainer">
             <div class="classPuzzle">
                 <div class="classPuzzleFila color1">
@@ -208,7 +209,19 @@
                 </div>
             </div>
         </div>
+        <div class="classPalabrasBuscar">
+            <h2 class="classH2Palabras">Palabras</h2>
+            <p id="idPRESTAMO" class = "classPalabra">PRESTAMO</p>
+            <p id="idPLATAFORMAS" class = "classPalabra">PLATAFORMAS</p>
+            <p id="idDISTRIBUCIÓN" class = "classPalabra">DISTRIBUCIÓN</p>
+            <p id="idVENTA" class = "classPalabra">VENTA</p>
+            <p id="idALQUILER" class = "classPalabra">ALQUILER</p>
+            <button id="idNewGame" class="classNewGame">Nuevo Juego</button>
+        </div>
+        
     </main>
     <script src="js/sopaLetras.js"></script>
+    <script src="js/pintarSopaLetras.js"></script>
+    <script src="js/guardarPalabraPintada.js"></script>
 </body>
 </html>
