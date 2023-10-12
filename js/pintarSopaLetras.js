@@ -31,9 +31,7 @@ function inicializarPinturaLetras(botones) {
     function pintarLetra(boton) {
         if (!boton.classList.contains('active')) {
             boton.classList.add('active');
-            boton.classList.add('encontrada');
             const letra = boton.textContent;
-            console.log(letra); 
             agregarLetraPintada(letra);
         }
     }
@@ -45,6 +43,7 @@ function inicializarPinturaLetras(botones) {
     function limpiarLetras(botones) {
         botones.forEach(boton => {
             boton.classList.remove('active');
+            limpiarLetrasPintadas();
         });
         
     }
@@ -52,17 +51,9 @@ function inicializarPinturaLetras(botones) {
     function subraarPalabra(botones){
         const palabraFormadaTexto = obtenerPalabraFormada();
         palabraFormada.textContent = palabraFormadaTexto;
-        let palabraCorrecta = validarPalabraObtenida(palabraFormadaTexto);
-        if(!palabraCorrecta){
-            limpiarLetras(botones);
-        }else{
-            boton.classList.remove('active');
-            limpiarLetrasPintadas();
-        }
-        
+        validarPalabraObtenida(palabraFormadaTexto);
+        limpiarLetras(botones);
     }
-    
-    console.log(palabraFormada);
 }
 
 function nuevoJuego(){

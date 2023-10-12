@@ -15,7 +15,6 @@ function agregarLetraPintada(letra) {
  */
 function obtenerPalabraFormada() {
     let palabraFormada = letrasPintadas.join('');
-    console.log(letrasPintadas);
     return palabraFormada;
 }
 
@@ -23,14 +22,27 @@ function validarPalabraObtenida(palabraObtenida){
     const palabras = ['PRESTAMO', 'PLATAFORMAS', 'DISTRIBUCIÓN', 'VENTA', 'ALQUILER'];
     for(let i = 0; i < palabras.length; i++){
         if(palabraObtenida == palabras[i]){
+            
             const idPalabra = `id${palabras[i]}`;
             // Obtén la palabra por su ID
             const palabraSubrayar = document.getElementById(idPalabra);
             palabraSubrayar.classList.add('classSubrayar');
-            return true;
+            pintarPalabraVerde(palabras.indexOf(palabraObtenida));
         }
     }
     return false;
+}
+
+function pintarPalabraVerde(indice){
+    // Recuperar desde el almacenamiento en sesión
+    const arrayDesdeSesion = JSON.parse(sessionStorage.getItem('arrayPrincipal'));
+    ubicacionesPalabra = arrayDesdeSesion[indice];
+    console.log(ubicacionesPalabra);
+    ubicacionesPalabra.forEach(ubicaciones => {
+        const idButton = `${ubicaciones[0]}-${ubicaciones[1]}`;
+        const letraBoton = document.getElementById(idButton);
+        letraBoton.classList.add("encontrada");
+    });
 }
 
 

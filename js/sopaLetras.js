@@ -1,3 +1,12 @@
+const palabraUbicacion = [,,,];
+const palabras = ['PRESTAMO', 'PLATAFORMAS', 'DISTRIBUCIÓN', 'VENTA', 'ALQUILER'];
+const filas = 12;
+const columnas = 14;
+const sopa = colocarPalabrasEnSopa(palabras, filas, columnas);
+const ubicacionPalabras = document.getElementById("idLabelUbicaciones");
+
+
+
 /**
  * Genera una matriz vacía (sopa de letras) con las dimensiones especificadas.
  * @param {number} filas - Número de filas de la sopa de letras.
@@ -49,12 +58,15 @@ function palabraCabeEnPosicion(sopa, palabra, fila, columna, orientacion) {
  * @param {number} columna - Índice de la columna donde se colocará la palabra.
  * @param {Array} orientacion - La orientación en la que se colocará la palabra (por ejemplo, [1, 0] para vertical).
  */
-function colocarPalabraEnSopa(sopa, palabra, fila, columna, orientacion) {
+function colocarPalabraEnSopa(sopa, palabra, fila, columna, orientacion, cont) {
     const pasoFila = orientacion[0];
     const pasoColumna = orientacion[1];
+    const palabraFormada = [];
     for (let i = 0; i < palabra.length; i++) {
         sopa[fila + i * pasoFila][columna + i * pasoColumna] = palabra[i];
+        palabraFormada.push([fila + i * pasoFila +1,columna + i * pasoColumna +1]); 
     }
+    palabraUbicacion.splice(cont,0,palabraFormada);
 }
 
 /**
@@ -92,7 +104,7 @@ function colocarPalabrasEnSopa(palabras, filas, columnas) {
     ];
 
     const sopa = generarSopa(filas, columnas);
-
+    let cont = 0;
     palabras.forEach(palabra => {
         let colocada = false;
         while (!colocada) {
@@ -101,21 +113,20 @@ function colocarPalabrasEnSopa(palabras, filas, columnas) {
             const columnaInicial = Math.floor(Math.random() * columnas);
 
             if (palabraCabeEnPosicion(sopa, palabra, filaInicial, columnaInicial, orientacion)) {
-                colocarPalabraEnSopa(sopa, palabra, filaInicial, columnaInicial, orientacion);
+                colocarPalabraEnSopa(sopa, palabra, filaInicial, columnaInicial, orientacion, cont);
                 colocada = true;
+                cont += 1;
             }
         }
         
     });
-    
+    sessionStorage.setItem('arrayPrincipal', JSON.stringify(palabraUbicacion));
     completarSopaLetras(sopa,filas,columnas);
     return sopa;
 }
 
-const palabras = ['PRESTAMO', 'PLATAFORMAS', 'DISTRIBUCIÓN', 'VENTA', 'ALQUILER'];
-const filas = 12;
-const columnas = 14;
-const sopa = colocarPalabrasEnSopa(palabras, filas, columnas);
+
+
 
 
 // Recorre la matriz y asigna los valores a los botones
