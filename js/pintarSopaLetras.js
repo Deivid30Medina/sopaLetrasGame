@@ -4,6 +4,7 @@
  */
 function inicializarPinturaLetras(botones) {
     let mousePresionado = false;
+    let tocandoPantalla = false;
     // Agrega el evento mousedown, mouseover y mouseup a cada botón
     botones.forEach(boton => {
         boton.addEventListener('mousedown', () => {
@@ -16,12 +17,32 @@ function inicializarPinturaLetras(botones) {
                 pintarLetra(boton);
             }
         });
+
+
+        boton.addEventListener('touchstart', () => {
+            tocandoPantalla = true;
+            pintarLetra(boton);
+        });
+
+        boton.addEventListener('touchmove', (event) => {
+            if (tocandoPantalla) {
+                event.preventDefault();
+                pintarLetra(boton);
+            }
+        });
+
+
     });
 
     // Agrega un evento al documento para limpiar las letras cuando se suelta el clic en cualquier parte del documento
     document.addEventListener('mouseup', () => {
         mousePresionado = false;
-        subraarPalabra(botones);
+        subrayarPalabra(botones);
+    });
+
+    document.addEventListener('touchend', () => {
+        tocandoPantalla = false;
+        subrayarPalabra(botones);
     });
 
     /**
@@ -48,7 +69,7 @@ function inicializarPinturaLetras(botones) {
         
     }
 
-    function subraarPalabra(botones){
+    function subrayarPalabra(botones){
         const palabraFormadaTexto = obtenerPalabraFormada();
         palabraFormada.textContent = palabraFormadaTexto;
         validarPalabraObtenida(palabraFormadaTexto);
