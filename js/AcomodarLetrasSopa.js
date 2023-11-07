@@ -1,7 +1,7 @@
 const palabraUbicacion = [,,,];
 const palabras = ['PRESTAMO', 'PLATAFORMAS', 'DISTRIBUCIÓN', 'VENTA', 'ALQUILER'];
 const filas = 12;
-const columnas = 14;
+const columnas = 12;
 const sopa = colocarPalabrasEnSopa(palabras, filas, columnas);
 const ubicacionPalabras = document.getElementById("idLabelUbicaciones");
 
