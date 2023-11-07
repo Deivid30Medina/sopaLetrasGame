@@ -37,7 +37,6 @@ function pintarPalabraVerde(indice){
     // Recuperar desde el almacenamiento en sesión
     const arrayDesdeSesion = JSON.parse(sessionStorage.getItem('arrayPrincipal'));
     ubicacionesPalabra = arrayDesdeSesion[indice];
-    console.log(ubicacionesPalabra);
     ubicacionesPalabra.forEach(ubicaciones => {
         const idButton = `${ubicaciones[0]}-${ubicaciones[1]}`;
         const letraBoton = document.getElementById(idButton);

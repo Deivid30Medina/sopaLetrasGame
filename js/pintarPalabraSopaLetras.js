@@ -2,7 +2,60 @@
  * Inicializa el comportamiento de pintura de letras en los botones de la sopa de letras.
  * @param {NodeList} botones - Lista de nodos de botones donde se aplicará la pintura de letras.
  */
-function inicializarPinturaLetras(botones) {
+function inicializarPinturaCelular(botones) {
+    let timeoutId;
+    
+    // Agrega el evento click a cada botón
+    botones.forEach(boton => {
+        boton.addEventListener('click', () => {
+            pintarLetra(boton);
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                subrayarPalabra(botones);
+                limpiarLetras(botones);
+            }, 2000); // Esperar 2 segundos antes de deshacer la acción
+        });
+    });
+
+    /**
+     * Pinta una letra en el botón si no tiene la clase 'active'.
+     * @param {Element} boton - El botón en el que se pintará la letra.
+     */
+    function pintarLetra(boton) {
+        if (!boton.classList.contains('active')) {
+            boton.classList.add('active');
+            const letra = boton.textContent;
+            agregarLetraPintada(letra);
+        }
+    }
+
+    /**
+     * Limpia las letras pintadas en todos los botones. Cuando se levanta el dedo.
+     * @param {NodeList} botones - Lista de nodos de botones donde se limpiará la pintura de letras.
+     */
+    function limpiarLetras(botones) {
+        botones.forEach(boton => {
+            if (boton.classList.contains('active')) {
+                boton.classList.remove('active');
+                limpiarLetrasPintadas();
+            }
+        });
+    }
+
+    function subrayarPalabra(botones){
+        const palabraFormadaTexto = obtenerPalabraFormada();
+        palabraFormada.textContent = palabraFormadaTexto;
+        console.log(palabraFormadaTexto);
+        validarPalabraObtenida(palabraFormadaTexto);
+        limpiarLetras(botones);
+    }
+}
+
+/**
+ * Inicializa el comportamiento de pintura de letras en los botones de la sopa de letras.
+ * @param {NodeList} botones - Lista de nodos de botones donde se aplicará la pintura de letras.
+ */
+function inicializarPinturaPC(botones) {
     let mousePresionado = false;
     let tocandoPantalla = false;
     // Agrega el evento mousedown, mouseover y mouseup a cada botón
@@ -18,30 +71,11 @@ function inicializarPinturaLetras(botones) {
             }
         });
 
-
-        boton.addEventListener('touchstart', () => {
-            tocandoPantalla = true;
-            pintarLetra(boton);
-        });
-
-        boton.addEventListener('touchmove', (event) => {
-            if (tocandoPantalla) {
-                event.preventDefault();
-                pintarLetra(boton);
-            }
-        });
-
-
     });
 
     // Agrega un evento al documento para limpiar las letras cuando se suelta el clic en cualquier parte del documento
     document.addEventListener('mouseup', () => {
         mousePresionado = false;
-        subrayarPalabra(botones);
-    });
-
-    document.addEventListener('touchend', () => {
-        tocandoPantalla = false;
         subrayarPalabra(botones);
     });
 
@@ -58,7 +92,7 @@ function inicializarPinturaLetras(botones) {
     }
 
     /**
-     * Limpia las letras pintadas en todos los botones.
+     * Limpia las letras pintadas en todos los botones. Cundo se levanta el mouse
      * @param {NodeList} botones - Lista de nodos de botones donde se limpiará la pintura de letras.
      */
     function limpiarLetras(botones) {
@@ -77,6 +111,16 @@ function inicializarPinturaLetras(botones) {
     }
 }
 
+
+function valdiarCelular_o_PC(resolucionPantalla, botones){
+    console.log(resolucionPantalla);
+    if(resolucionPantalla <= 709){
+        inicializarPinturaCelular(botones);
+    }else{
+        inicializarPinturaPC(botones);
+    }
+}
+
 function nuevoJuego(){
     botonNewGame.addEventListener("click", function() {
         // Código que se ejecuta cuando el botón es clicado
@@ -89,54 +133,6 @@ function nuevoJuego(){
 const palabraFormada = document.getElementById("palabra-formada");
 const botonNewGame = document.getElementById("idNewGame");
 const botones = document.querySelectorAll('.classLetra');
-inicializarPinturaLetras(botones);
+let resolucion = screen.width;
+valdiarCelular_o_PC(resolucion, botones);
 nuevoJuego();
-
-
-
-/*
-1. Evento mousedown:
-Este evento ocurre cuando el botón del mouse es presionado
- mientras el cursor está sobre el elemento. En el contexto del
- código proporcionado, el evento mousedown se utiliza para iniciar
- la pintura de una letra cuando el usuario hace clic en un botón de la sopa
- de letras. Cuando el usuario presiona el botón del mouse sobre un botón, se añade
- la clase active al botón, indicando que esa letra está siendo pintada.
- 
- boton.addEventListener('mousedown', () => {
-    mousePresionado = true;
-    pintarLetra(boton);
-});
-
-2. Evento mouseover:
-Este evento ocurre cuando el cursor se mueve sobre
- el elemento, es decir, cuando el usuario pasa el mouse
- sobre el botón sin presionar el botón del mouse. 
- En el contexto del código, el evento mouseover se utiliza para 
- continuar pintando letras cuando el usuario mantiene presionado 
- el botón del mouse y pasa el cursor sobre otros botones. Si el mouse 
- está presionado (mousePresionado es true), se llama a la función 
- pintarLetra(boton) para pintar la letra en el botón sobre el cual 
- está el cursor.
- 
-boton.addEventListener('mouseover', () => {
-    if (mousePresionado) {
-        pintarLetra(boton);
-    }
-});
-
-3. Evento mouseup:
-Este evento ocurre cuando el botón del mouse es liberado después
- de ser presionado. En el contexto del código, el evento mouseup 
- se utiliza para limpiar todas las letras pintadas cuando el usuario 
- suelta el botón del mouse en cualquier parte del documento. Cuando el 
- usuario suelta el botón del mouse, mousePresionado se establece a false, 
- y se llama a la función limpiarLetras(botones) para quitar la clase active 
- de todos los botones, eliminando así las letras pintadas.
-
-document.addEventListener('mouseup', () => {
-    mousePresionado = false;
-    limpiarLetras(botones);
-});
-
-*/
