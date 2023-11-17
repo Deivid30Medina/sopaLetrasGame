@@ -19,8 +19,8 @@ function obtenerPalabraFormada() {
 }
 
 function validarPalabraObtenida(palabraObtenida){
-    const palabras = ['PRESTAMO', 'PLATAFORMAS', 'DISTRIBUCIÓN', 'VENTA', 'ALQUILER'];
-    for(let i = 0; i < palabras.length; i++){
+    const palabras = ['PRESTAMO', 'PLATAFORMAS', 'DISTRIBUCIÓN', 'VENTA', 'ALQUILER', 'AUTOR'];
+    for(let i = 0; i < palabras.length; i++){ 
         if(palabraObtenida == palabras[i]){
             
             const idPalabra = `id${palabras[i]}`;
