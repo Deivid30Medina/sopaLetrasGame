@@ -22,7 +22,7 @@
 .classPalabrasBuscar{
     width: 20%;
     height: 380px;
-    border: 2px solid black;
+    border: 0;
     color: black;
     display: flex;
     align-items: center;
@@ -60,7 +60,7 @@
 .classPuzzle{
     width: 630px;
     height: 540px;
-    border: 2px solid black;
+    border-right: 2px solid black;
 }
 
 .classPuzzleFila{
@@ -76,6 +76,10 @@
     height: 35px;
     margin: 0;
     padding: 0;
+    border: 0;
+    background-color: transparent;
+    color: #3f3f3f;
+    font-weight: bolder;
 }
 
 

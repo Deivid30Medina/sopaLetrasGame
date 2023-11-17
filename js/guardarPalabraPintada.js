@@ -28,6 +28,7 @@ function validarPalabraObtenida(palabraObtenida){
             const palabraSubrayar = document.getElementById(idPalabra);
             palabraSubrayar.classList.add('classSubrayar');
             pintarPalabraVerde(palabras.indexOf(palabraObtenida));
+            validarOpcionGanar();
         }
     }
     return false;
