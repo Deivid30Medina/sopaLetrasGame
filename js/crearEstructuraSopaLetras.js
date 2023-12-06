@@ -17,4 +17,4 @@ function crearEstructuraBotonesSopaLetras(x, y) {
 }
 
 // Llamada a la función para crear una sopa de letras de 5 filas y 12 columnas
-crearEstructuraBotonesSopaLetras(12, 12);
+crearEstructuraBotonesSopaLetras(9, 12);

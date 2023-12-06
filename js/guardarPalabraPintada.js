@@ -19,7 +19,7 @@ function obtenerPalabraFormada() {
 }
 
 function validarPalabraObtenida(palabraObtenida){
-    const palabras = ['PRESTAMO', 'PLATAFORMAS', 'DISTRIBUCIÓN', 'VENTA', 'ALQUILER', 'AUTOR'];
+    const palabras = ['DISTRIBUCIÓN', 'PLATAFORMAS', 'PRESTAMO', 'ALQUILER', 'VENTA', 'AUTOR'];
     for(let i = 0; i < palabras.length; i++){ 
         if(palabraObtenida == palabras[i]){
             
